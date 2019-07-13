@@ -44,7 +44,7 @@ function writeFiles (req, res) {
             var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
             var writeFileListFile = `/filelist2.xml`
             var writeHeaderFile = __dirname + `/header2.html`
-            console.log(os.tmpdir());
+            console.log(process.env.HOME + '/Desktop/blahblahblah');
             console.log(writeFileListFile);
             // var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
             // var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
@@ -53,7 +53,7 @@ function writeFiles (req, res) {
             //     if (err) throw err;
             //     console.log('Saved!');
             // });
-            let thePath = path.join(__dirname, 'Users', 'desmondmullen', 'Downloads', 'header.txt');
+            let thePath = path.join(process.env.HOME, 'Users', 'desmondmullen', 'Downloads', 'header.txt');
 
             fs.writeFile(thePath, "Inception, Die Hard", function (err) {
 
