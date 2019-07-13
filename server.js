@@ -65,7 +65,7 @@ function writeFiles (req, res) {
                 if (err) throw err
                 console.log('moved header.html')
             })
-        }, 3000);
+        }, 6000);
 
     });
     renderWelcomePage(req, res)
