@@ -40,24 +40,44 @@ function writeFiles (req, res) {
             requestData += data;
             theShortFileName = JSON.parse(requestData).body;
             console.log("Creating directory and moving files for: ", theShortFileName);
-            var readFileListFile = `/Users/desmondmullen/Downloads/filelist.xml`
+            var readFileListFile = `filelist.xml`
+            // var readFileListFile = `/Users/desmondmullen/Downloads/filelist.xml`
             var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
-            var writeFileListFile = `/Users/desmondmullen/Downloads/filelist2.xml`
-            var writeHeaderFile = `/Users/desmondmullen/Downloads/header2.html`
-            // var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
-            // var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
+            var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
+            var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
 
 
-            fs.outputFile(writeFileListFile, 'testing', function (err) {
+            fs.readFile(readFileListFile, 'utf8', function (err, data) {
                 if (err) {
-                    console.log('writeFileListFile error: ' + err); // => null
+                    console.log('readFileListFile error: ' + err); // => null
                 }
+                // console.log(data); // => hello!
+                fs.outputFile(writeFileListFile, data, function (err) {
+                    if (err) {
+                        console.log('writeFileListFile error: ' + err); // => null
+                    }
 
+                });
+                fs.unlink(readFileListFile, (err) => {
+                    if (err) throw err;
+                    console.log(readFileListFile + ' was deleted');
+                });
             });
-            fs.outputFile(writeHeaderFile, 'testing', function (err) {
+            fs.readFile(readHeaderFile, 'utf8', function (err, data) {
                 if (err) {
-                    console.log('writeHeaderFile error: ' + err); // => null
+                    console.log('readHeaderFile error: ' + err); // => null
                 }
+                // console.log(data); // => hello!
+                fs.outputFile(writeHeaderFile, data, function (err) {
+                    if (err) {
+                        console.log('writeHeaderFile error: ' + err); // => null
+                    }
+
+                });
+                fs.unlink(readHeaderFile, (err) => {
+                    if (err) throw err;
+                    console.log(readHeaderFile + ' was deleted');
+                });
 
             });
         });
