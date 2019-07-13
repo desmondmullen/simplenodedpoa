@@ -2,6 +2,7 @@
 var http = require("http");
 const os = require('os');
 var fs = require('fs-extra');
+var path = require('path');
 
 var PORT = process.env.PORT || 8080;
 
