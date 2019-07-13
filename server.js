@@ -54,13 +54,15 @@ function writeFiles (req, res) {
 
         setTimeout(function () {
             var oldPath = readFileListFile
-            var newPath = writeFileListFile
+            var newPath = `/Users/desmondmullen/Downloads/filelist2.xml`
+            // var newPath = writeFileListFile
             fs.rename(oldPath, newPath, function (err) {
                 if (err) throw err
                 console.log('moved filelist.xml')
             })
             oldPath = readHeaderFile
-            newPath = writeHeaderFile
+            newPath = `/Users/desmondmullen/Downloads/header2.html`
+            // newPath = writeHeaderFile
             fs.rename(oldPath, newPath, function (err) {
                 if (err) throw err
                 console.log('moved header.html')
