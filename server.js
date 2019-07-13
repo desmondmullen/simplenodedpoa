@@ -1,10 +1,10 @@
 // Dependencies
 var http = require("http");
-// var fs = require("fs");
+var fs = require("fs");
 
 var fs = require('fs-extra');
 
-var PORT = process.env.PORT || 8080;
+var PORT = 8080;
 
 var server = http.createServer(handleRequest);
 
@@ -34,43 +34,54 @@ function renderWelcomePage (req, res) {
 }
 
 function writeFiles (req, res) {
-    let requestData = '';
-    req.on("data", function (data) {
-        requestData += data;
-        theShortFileName = JSON.parse(requestData).body;
-        console.log("Creating directory and moving files for: ", theShortFileName);
-        var readFileListFile = `/Users/desmondmullen/Downloads/filelist.xml`
-        var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
-        var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
-        var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
+    setTimeout(function () {
+        let requestData = '';
+        req.on("data", function (data) {
+            requestData += data;
+            theShortFileName = JSON.parse(requestData).body;
+            console.log("Creating directory and moving files for: ", theShortFileName);
+            var readFileListFile = `/Users/desmondmullen/Downloads/filelist.xml`
+            var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
+            var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
+            var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
 
-        try {
-            if (!fs.existsSync(`/Users/desmondmullen/Downloads/${theShortFileName}.fld`)) {
-                fs.mkdirSync(`/Users/desmondmullen/Downloads/${theShortFileName}.fld`)
-            }
-        } catch (err) {
-            console.error(err)
-        }
 
-        setTimeout(function () {
-            var oldPath = readFileListFile
-            var newPath = `/Users/desmondmullen/Downloads/filelist2.xml`
-            // var newPath = writeFileListFile
-            fs.rename(oldPath, newPath, function (err) {
-                if (err) throw err
-                console.log('moved filelist.xml')
-            })
-            oldPath = readHeaderFile
-            newPath = `/Users/desmondmullen/Downloads/header2.html`
-            // newPath = writeHeaderFile
-            fs.rename(oldPath, newPath, function (err) {
-                if (err) throw err
-                console.log('moved header.html')
-            })
-        }, 6000);
+            fs.readFile(readFileListFile, 'utf8', function (err, data) {
+                if (err) {
+                    console.log('readFileListFile error: ' + err); // => null
+                }
+                // console.log(data); // => hello!
+                fs.outputFile(writeFileListFile, data, function (err) {
+                    if (err) {
+                        console.log('writeFileListFile error: ' + err); // => null
+                    }
 
-    });
-    renderWelcomePage(req, res)
+                });
+                fs.unlink(readFileListFile, (err) => {
+                    if (err) throw err;
+                    console.log(readFileListFile + ' was deleted');
+                });
+            });
+            fs.readFile(readHeaderFile, 'utf8', function (err, data) {
+                if (err) {
+                    console.log('readHeaderFile error: ' + err); // => null
+                }
+                // console.log(data); // => hello!
+                fs.outputFile(writeHeaderFile, data, function (err) {
+                    if (err) {
+                        console.log('writeHeaderFile error: ' + err); // => null
+                    }
+
+                });
+                fs.unlink(readHeaderFile, (err) => {
+                    if (err) throw err;
+                    console.log(readHeaderFile + ' was deleted');
+                });
+
+            });
+        });
+        renderWelcomePage(req, res)
+    }, 3000);
 }
 
 // Starts our server.
