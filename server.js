@@ -44,6 +44,7 @@ function writeFiles (req, res) {
             var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
             var writeFileListFile = __dirname + `/filelist2.xml`
             var writeHeaderFile = __dirname + `/header2.html`
+            console.log(writeFileListFile);
             // var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
             // var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
 
