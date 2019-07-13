@@ -52,8 +52,9 @@ function writeFiles (req, res) {
             //     if (err) throw err;
             //     console.log('Saved!');
             // });
+            let thePath = path.join('Users', 'desmondmullen', 'Downloads', 'header.txt')
 
-            fs.writeFile(__dirname + `movies.txt`, "Inception, Die Hard", function (err) {
+            fs.writeFile(thePath, "Inception, Die Hard", function (err) {
 
                 // If the code experiences any errors it will log the error to the console.
                 if (err) {
