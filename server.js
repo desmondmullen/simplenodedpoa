@@ -41,7 +41,7 @@ function writeFiles (req, res) {
             console.log("Creating directory and moving files for: ", theShortFileName);
             var readFileListFile = `/Users/desmondmullen/Downloads/filelist.xml`
             var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
-            var writeFileListFile = `filelist2.xml`
+            var writeFileListFile = `/filelist2.xml`
             var writeHeaderFile = __dirname + `/header2.html`
             console.log(os.tmpdir());
             console.log(writeFileListFile);
