@@ -40,7 +40,8 @@ function writeFiles (req, res) {
             requestData += data;
             theShortFileName = JSON.parse(requestData).body;
             console.log("Creating directory and moving files for: ", theShortFileName);
-            var readFileListFile = `/Users/desmondmullen/Downloads/filelist.xml`
+            var readFileListFile = `filelist.xml`
+            // var readFileListFile = `/Users/desmondmullen/Downloads/filelist.xml`
             var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
             var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
             var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
