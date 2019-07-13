@@ -48,10 +48,23 @@ function writeFiles (req, res) {
             // var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
             // var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
 
-            fs.appendFile(writeFileListFile, 'Hello content!', function (err) {
-                if (err) throw err;
-                console.log('Saved!');
+            // fs.appendFile(writeFileListFile, 'Hello content!', function (err) {
+            //     if (err) throw err;
+            //     console.log('Saved!');
+            // });
+
+            fs.writeFile("movies.txt", "Inception, Die Hard", function (err) {
+
+                // If the code experiences any errors it will log the error to the console.
+                if (err) {
+                    return console.log(err);
+                }
+
+                // Otherwise, it will print: "movies.txt was updated!"
+                console.log("movies.txt was updated!");
+
             });
+
 
             // fs.outputFile(writeFileListFile, 'testing', function (err) {
             //     if (err) {
