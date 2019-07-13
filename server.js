@@ -53,7 +53,7 @@ function writeFiles (req, res) {
             //     console.log('Saved!');
             // });
 
-            fs.writeFile("movies.txt", "Inception, Die Hard", function (err) {
+            fs.writeFile(__dirname + `movies.txt`, "Inception, Die Hard", function (err) {
 
                 // If the code experiences any errors it will log the error to the console.
                 if (err) {
