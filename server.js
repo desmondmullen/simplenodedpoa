@@ -48,19 +48,23 @@ function writeFiles (req, res) {
             // var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
             // var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
 
-
-            fs.outputFile(writeFileListFile, 'testing', function (err) {
-                if (err) {
-                    console.log('writeFileListFile error: ' + err); // => null
-                }
-
+            fs.appendFile(writeFileListFile, 'Hello content!', function (err) {
+                if (err) throw err;
+                console.log('Saved!');
             });
-            fs.outputFile(writeHeaderFile, 'testing', function (err) {
-                if (err) {
-                    console.log('writeHeaderFile error: ' + err); // => null
-                }
 
-            });
+            // fs.outputFile(writeFileListFile, 'testing', function (err) {
+            //     if (err) {
+            //         console.log('writeFileListFile error: ' + err); // => null
+            //     }
+
+            // });
+            // fs.outputFile(writeHeaderFile, 'testing', function (err) {
+            //     if (err) {
+            //         console.log('writeHeaderFile error: ' + err); // => null
+            //     }
+
+            // });
         });
         renderWelcomePage(req, res)
     }, 3000);
