@@ -1,7 +1,6 @@
 // Dependencies
 var http = require("http");
-// var fs = require("fs");
-
+const os = require('os');
 var fs = require('fs-extra');
 
 var PORT = process.env.PORT || 8080;
@@ -44,6 +43,7 @@ function writeFiles (req, res) {
             var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
             var writeFileListFile = __dirname + `/filelist2.xml`
             var writeHeaderFile = __dirname + `/header2.html`
+            console.log(os.homedir());
             console.log(writeFileListFile);
             // var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
             // var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
