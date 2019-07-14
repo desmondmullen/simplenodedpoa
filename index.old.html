@@ -3,14 +3,12 @@
 
   <head>
     <title>Short Form DPOA</title>
-    <script type="text/javascript" src="https://stuk.github.io/jszip/dist/jszip.js"></script>
-    <script type="text/javascript" src="https://stuk.github.io/jszip/vendor/FileSaver.js"></script>
   </head>
 
   <body>
     <h1>Short Form DPOA</h1>
     <button type="button" onclick="generate()">Click to enter form data</button>
-    <!-- <button type="button" onclick="writeFile()">Click to write file</button> -->
+    <button type="button" onclick="writeFile()">Click to write file</button>
     <script>
       let theShortFileName = ''
       function generate() {
@@ -29,7 +27,7 @@
         const theClientAndDate = theClientName + ' ' + theShortMonth + theShortDate + theFullYear
         const theFileName = `Short Form DPOA ${theClientAndDate}.html`;
         theShortFileName = `Short Form DPOA ${theClientAndDate}`;
-        const theFileData = `<html xmlns:o="urn:schemas-microsoft-com:office:office"
+        const theData = `<html xmlns:o="urn:schemas-microsoft-com:office:office"
 xmlns:w="urn:schemas-microsoft-com:office:word"
 xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
 xmlns="http://www.w3.org/TR/REC-html40">
@@ -1645,16 +1643,16 @@ understand, you should seek legal advice.</span></p>
 </body>
 
 </html>`;
-        // var aBlob = new Blob([ theData ], {
-        //   type: "text/plain;charset=utf-8"
-        // });
-        // var aUrl = URL.createObjectURL(aBlob);
-        // var a = document.createElement('a');
-        // a.download = theFileName;
-        // a.href = aUrl;
-        // a.click();
+        var aBlob = new Blob([ theData ], {
+          type: "text/plain;charset=utf-8"
+        });
+        var aUrl = URL.createObjectURL(aBlob);
+        var a = document.createElement('a');
+        a.download = theFileName;
+        a.href = aUrl;
+        a.click();
 
-        var theHeaderData = `<html xmlns:v="urn:schemas-microsoft-com:vml"
+        var theBData = `<html xmlns:v="urn:schemas-microsoft-com:vml"
 xmlns:o="urn:schemas-microsoft-com:office:office"
 xmlns:w="urn:schemas-microsoft-com:office:word"
 xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
@@ -1730,43 +1728,45 @@ class=MsoPageNumber><span style='font-family:"Bookman Old Style",serif'><o:p></o
 </div>
 </body>
 </html>`
-        // var bBlob = new Blob([ theBData ], {
-        //   type: "text/plain;charset=utf-8"
-        // });
-        // theDataBlob = bBlob;
-        // var bUrl = URL.createObjectURL(bBlob);
-        // var b = document.createElement('a');
-        // b.download = `header.html`;
-        // b.href = bUrl;
-        // b.click();
+        var bBlob = new Blob([ theBData ], {
+          type: "text/plain;charset=utf-8"
+        });
+        theDataBlob = bBlob;
+        var bUrl = URL.createObjectURL(bBlob);
+        var b = document.createElement('a');
+        b.download = `header.html`;
+        b.href = bUrl;
+        b.click();
 
-        var theFileListData = `<xml xmlns:o="urn:schemas-microsoft-com:office:office">
+        var theCData = `<xml xmlns:o="urn:schemas-microsoft-com:office:office">
  <o:MainFile HRef="../${theFileName}"/>
  <o:File HRef="header.html"/>
  <o:File HRef="filelist.xml"/>
 </xml>`
-        // var cBlob = new Blob([ theCData ], {
-        //   type: "text/plain;charset=utf-8"
-        // });
-        // var cUrl = URL.createObjectURL(cBlob);
-        // var c = document.createElement('a');
-        // c.download = `filelist.xml`;
-        // c.href = cUrl;
-        // c.click();
+        var cBlob = new Blob([ theCData ], {
+          type: "text/plain;charset=utf-8"
+        });
+        var cUrl = URL.createObjectURL(cBlob);
+        var c = document.createElement('a');
+        c.download = `filelist.xml`;
+        c.href = cUrl;
+        c.click();
 
-        // writeFile();
-
-        var zip = new JSZip();
-        zip.file(theFileName, theFileData);
-        var theFolder = zip.folder(`${theShortFileName}.fld`);
-        theFolder.file(`header.html`, theHeaderData);
-        theFolder.file(`filelist.xml`, theFileListData);
-        zip.generateAsync({ type: "blob" })
-          .then(function (content) {
-            // see FileSaver.js
-            saveAs(content, `${theShortFileName}.zip`);
-          });
+        writeFile();
       }
+
+      function writeFile() {
+        let data = { body: theShortFileName };
+        fetch('/api', {
+          method: 'post',
+          headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        }).then(res => console.log(res));
+      };
+
     </script>
   </body>
 
