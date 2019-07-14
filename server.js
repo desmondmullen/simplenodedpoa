@@ -3,6 +3,7 @@ var http = require("http");
 const os = require('os');
 var fs = require('fs-extra');
 var path = require('path');
+var zip = new JSZip();
 
 var PORT = process.env.PORT || 8080;
 
@@ -43,43 +44,22 @@ function writeFiles (req, res) {
             var readFileListFile = `/Users/desmondmullen/Downloads/filelist.xml`
             var readHeaderFile = `/Users/desmondmullen/Downloads/header.html`
             var writeFileListFile = `/filelist2.xml`
-            var writeHeaderFile = __dirname + `/header2.html`
-            console.log(process.env.HOME + '/Desktop/blahblahblah');
-            console.log(writeFileListFile);
+            var writeHeaderFile = `/header2.html`
             // var writeFileListFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/filelist.xml`
             // var writeHeaderFile = `/Users/desmondmullen/Downloads/${theShortFileName}.fld/header.html`
 
             // fs.appendFile(writeFileListFile, 'Hello content!', function (err) {
             //     if (err) throw err;
             //     console.log('Saved!');
-            // });
-            let thePath = path.join(process.env.HOME, 'Users', 'desmondmullen', 'Downloads', 'header.txt');
+            zip.file("Hello.txt", "Hello World\n");
 
-            fs.writeFile(thePath, "Inception, Die Hard", function (err) {
+            var img = zip.folder("images");
+            img.file("smile.gif", imgData, { base64: true });
 
-                // If the code experiences any errors it will log the error to the console.
-                if (err) {
-                    return console.log(err);
-                }
-
-                // Otherwise, it will print: "movies.txt was updated!"
-                console.log("movies.txt was updated!");
-
+            zip.generateAsync({ type: "blob" }).then(function (content) {
+                // see FileSaver.js
+                saveAs(content, "example.zip");
             });
-
-
-            // fs.outputFile(writeFileListFile, 'testing', function (err) {
-            //     if (err) {
-            //         console.log('writeFileListFile error: ' + err); // => null
-            //     }
-
-            // });
-            // fs.outputFile(writeHeaderFile, 'testing', function (err) {
-            //     if (err) {
-            //         console.log('writeHeaderFile error: ' + err); // => null
-            //     }
-
-            // });
         });
         renderWelcomePage(req, res)
     }, 3000);

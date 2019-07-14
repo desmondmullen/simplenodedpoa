@@ -1,0 +1,10 @@
+word - save as filtered html
+then open filtered html in word and add temp header
+then open newly-saved filtered html in VSC
+
+add 'mso-title-page:yes;' after:
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;
+	mso-header-margin:.5in;
+  mso-footer-margin:.5in;
